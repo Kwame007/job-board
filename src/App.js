@@ -19,7 +19,6 @@ function App() {
     currentPage,
     `https://data.usajobs.gov/api/Search?Keyword=software&Page=${currentPage}&ResultsPerPage=5`
   );
-  console.log(jobsResults);
 
   const onPageChange = (pageNumber) => {
     dispatch(setCurrentPage(pageNumber));
@@ -32,7 +31,6 @@ function App() {
       setMinPageLimit(minPageLimit - pageNumberLimit);
     }
     dispatch(setCurrentPage(currentPage - 1));
-    // dispatch(setCurrentPage((prev) => prev - 1));
   };
 
   // handle next page click
@@ -42,7 +40,6 @@ function App() {
       setMinPageLimit(minPageLimit + pageNumberLimit);
     }
     dispatch(setCurrentPage(currentPage + 1));
-    // dispatch(setCurrentPage((prev) => prev + 1));
   };
 
   // pagination properties
@@ -61,35 +58,6 @@ function App() {
       console.log("already authenticated");
     }
   }, [dispatch]);
-
-  // fetch data on mount
-  // useEffect(() => {
-  //   const host = "data.usajobs.gov";
-  //   const userAgent = "darteyw@gmail.com";
-  //   const authKey = "RUvksQfDicR3xPWTvlm3kkyEg5I940G03iWlalEYx5M=";
-
-  //   const fetchData = async () => {
-  //     const response = await fetch(
-  //       `https://data.usajobs.gov/api/Search?Keyword=software&Page=${currentPage}&ResultsPerPage=5`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           Host: host,
-  //           "User-Agent": userAgent,
-  //           "Authorization-Key": authKey,
-  //         },
-  //       }
-  //     );
-
-  //     const data = await response.json();
-
-  //     // get jobs data
-  //     dispatch(getJobs(data));
-  //     dispatch(setLoading(false));
-  //   };
-
-  //   fetchData();
-  // }, [currentPage, dispatch]);
 
   return (
     <>
