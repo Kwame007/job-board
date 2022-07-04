@@ -14,12 +14,14 @@ module.exports = {
       colors: {
         "text-gray": "#B9BDCF",
         "text-blue": "#334680",
+        "light-blue": "#50B3CF",
       },
       boxShadow: {
         blue: "0px 2px 4px rgba(0, 0, 0, 0.05)",
       },
       backgroundColor: {
         "bg-blue": "#f6f7fb",
+        "light-blue": "#F2FCFF",
       },
       height: {
         147: "147px",

@@ -8,10 +8,10 @@ export const authSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      state.isAuthenticated = true;
+      state.isAuthenticated = action.payload;
     },
     logout: (state, action) => {
-      state.isAuthenticated = false;
+      state.isAuthenticated = action.payload;
     },
   },
 });

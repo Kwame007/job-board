@@ -1,17 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import Home from "../pages/Home";
-import Headers from "./Header";
-import SignUp from "./Routes/SignUp";
 
 const ProtectedRoutes = () => {
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
 
-  if (!auth.isAuthenticated) {
-    return <Navigate to="/signup" replace={true} />;
-  }
-  console.log(auth);
+  // if (!auth.isAuthenticated) {
+  //   console.log(auth);
+  //   return <Navigate to="/signup" replace={true} />;
+  // }
+
   return (
     <>
       <Navigate to="/home" replace={true} />

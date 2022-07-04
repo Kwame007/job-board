@@ -1,10 +1,28 @@
 import React from "react";
 import Filter from "../components/Filter";
 import Header from "../components/Header";
-import JobCard from "../components/JobCard";
 import SearchInput from "../components/SearchInput";
+import Pagination from "../components/Pagination";
+import Jobs from "../components/Jobs";
 
-const Home = () => {
+const Home = ({
+  currentPage,
+  maxPageLimit,
+  minPageLimit,
+  loading,
+  data,
+  onPrevClick,
+  onNextClick,
+  onPageChange,
+}) => {
+  const paginationAttributes = {
+    currentPage,
+    maxPageLimit,
+    minPageLimit,
+    data,
+    loading,
+  };
+
   return (
     <>
       <Header />
@@ -14,9 +32,19 @@ const Home = () => {
           {" "}
           <Filter />
         </div>
-        <div className="md:w-full">
+        <div className="pt-10 md:pt-0 md:w-full">
           {" "}
-          <JobCard />
+          <Jobs data={data} loading={loading} />
+          {!loading ? (
+            <Pagination
+              {...paginationAttributes}
+              onPrevClick={onPrevClick}
+              onNextClick={onNextClick}
+              onPageChange={onPageChange}
+            />
+          ) : (
+            <div> Loading... </div>
+          )}
         </div>
       </section>
     </>

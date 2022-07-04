@@ -1,11 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import logo from "../assets/images/logo.svg";
+import { openModal } from "../store/ModalSlice";
+import { getAuth, signOut } from "firebase/auth";
+import { logout } from "../store/AuthSlice";
 
 const Header = () => {
+  
+
   const auth = useSelector((state) => state.auth.isAuthenticated);
-  console.log(auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // open login modal
+  const openLoginModal = () => {
+    dispatch(openModal());
+  };
+
+  // handle logout
+  const handleLogout = (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+
+        // set isAuthenticated to false
+        dispatch(logout(false));
+
+        // clear session storage
+        sessionStorage.removeItem("isAuthenticated");
+
+        // redirect to home page
+        navigate("/home", { replace: true });
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+ 
   return (
     <>
       <header className="grid grid-cols-2 gap-5 h-9 items-center mt-5">
@@ -23,8 +58,9 @@ const Header = () => {
         {/* show when user is not authenticated  */}
         {!auth && (
           <Link
-            to="/login"
+            to="/signin"
             className="text-right font-extrabold text-blue-500 tracking-wider"
+            onClick={openLoginModal}
           >
             Login
           </Link>
@@ -32,12 +68,12 @@ const Header = () => {
 
         {/* show when user is authenticated  */}
         {auth && (
-          <Link
-            to="/logout"
+          <button
             className="text-right font-extrabold text-blue-500 tracking-wider"
+            onClick={handleLogout}
           >
             Logout
-          </Link>
+          </button>
         )}
       </header>
     </>
