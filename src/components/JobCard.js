@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { openModal } from "../store/ModalSlice";
 import { setDoc, doc } from "firebase/firestore";
 import db from "../firebase/firestore";
+import moment from "moment";
 
 const JobCard = ({ data, loading }) => {
   // bookmark
@@ -65,6 +66,9 @@ const JobCard = ({ data, loading }) => {
       data?.MatchedObjectDescriptor?.UserArea?.Details?.JobSummary,
     PositionPostedDate: data?.MatchedObjectDescriptor?.PositionPostedDate,
     PositionLocation: data?.MatchedObjectDescriptor?.PositionLocationDisplay,
+    PositionPublicationStartDate: moment(
+      data?.MatchedObjectDescriptor?.PublicationStartDate
+    ).fromNow(),
   };
 
   return (
@@ -112,7 +116,9 @@ const JobCard = ({ data, loading }) => {
             </span>
             <span className="flex items-center gap-1">
               <RiTimeLine className="text-text-gray" />
-              <p className=" text-xs leading-4 text-text-gray">5 days ago</p>
+              <p className=" text-xs leading-4 text-text-gray">
+                {jobDetails.PositionPublicationStartDate}
+              </p>
             </span>
           </span>
         </div>

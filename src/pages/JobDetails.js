@@ -7,6 +7,7 @@ import db from "../firebase/firestore";
 import { setCurrentPage } from "../store/JobSlice";
 import { useDispatch } from "react-redux";
 import Modal from "../Modal";
+import moment from "moment";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -55,6 +56,9 @@ const JobDetails = () => {
       job?.MatchedObjectDescriptor?.UserArea?.Details?.OtherInformation,
     PositionHowToApply:
       job?.MatchedObjectDescriptor?.UserArea?.Details?.HowToApply,
+    PositionPublicationStartDate: moment(
+      job?.MatchedObjectDescriptor?.PublicationStartDate
+    ).fromNow(),
   };
 
   return (
@@ -120,7 +124,7 @@ const JobDetails = () => {
                   </span>
                 </div>
                 <span className="text-gray-700">
-                  <p>Posted 22 days ago</p>
+                  <p>Posted : {jobDetails.PositionPublicationStartDate}</p>
                 </span>
               </div>
               <div className="hidden md:flex md:justify-end md:w-full">
